@@ -121,6 +121,12 @@ public class HolidayCalendarInitializer implements ApplicationRunner {
             return defaultDay(date);
         }
 
+        var calendarWeekend = date.getDayOfWeek() == DayOfWeek.SATURDAY
+                || date.getDayOfWeek() == DayOfWeek.SUNDAY;
+        if (record.holidaycategory() != null && "特定節日".equals(record.holidaycategory().trim())) {
+            return new CalendarDay(date, DayType.HOLIDAY, holidayName(record), !calendarWeekend, API_SOURCE);
+        }
+
         if (!"是".equals(record.isholiday())) {
             return new CalendarDay(date, DayType.WORKDAY, null, true, API_SOURCE);
         }

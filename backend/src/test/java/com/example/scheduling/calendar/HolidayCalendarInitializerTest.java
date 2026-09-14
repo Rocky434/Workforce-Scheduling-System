@@ -61,6 +61,16 @@ class HolidayCalendarInitializerTest {
         assertEquals("春節補假", namedCompensatoryDay.getHolidayName());
         assertFalse(namedCompensatoryDay.isSchedulable());
 
+        var weekdaySpecialHoliday = days.get(LocalDate.of(2026, 5, 1));
+        assertEquals(DayType.HOLIDAY, weekdaySpecialHoliday.getDayType());
+        assertEquals("勞動節", weekdaySpecialHoliday.getHolidayName());
+        assertTrue(weekdaySpecialHoliday.isSchedulable());
+
+        var weekendSpecialHoliday = days.get(LocalDate.of(2026, 5, 2));
+        assertEquals(DayType.HOLIDAY, weekendSpecialHoliday.getDayType());
+        assertEquals("週末特定節日", weekendSpecialHoliday.getHolidayName());
+        assertFalse(weekendSpecialHoliday.isSchedulable());
+
         var adjustedWorkday = days.get(LocalDate.of(2026, 10, 17));
         assertEquals(DayType.WORKDAY, adjustedWorkday.getDayType());
         assertTrue(adjustedWorkday.isSchedulable());
@@ -109,9 +119,11 @@ class HolidayCalendarInitializerTest {
                         "是", "星期六、星期日"));
             }
         }
-        records.removeIf(item -> List.of("20260220", "20261009", "20261010", "20261011", "20261017")
+        records.removeIf(item -> List.of("20260220", "20260502", "20261009", "20261010", "20261011", "20261017")
                 .contains(item.date()));
         records.add(record("20260220", "春節", "是", "補假"));
+        records.add(record("20260501", "勞動節", "是", " 特定節日 "));
+        records.add(record("20260502", "週末特定節日", "是", "特定節日"));
         records.add(record("20261010", "國慶日", "是", "放假之紀念日及節日"));
         records.add(record("20261011", null, "是", "星期六、星期日"));
         records.add(record("20261009", null, "是", "補假"));
