@@ -120,11 +120,21 @@ public class HolidayCalendarInitializer implements ApplicationRunner {
         }
 
         var weekend = record.holidaycategory() != null && record.holidaycategory().contains("星期六、星期日");
-        var name = hasText(record.name()) ? record.name().trim()
-                : weekend ? null
-                        : hasText(record.holidaycategory()) ? record.holidaycategory().trim() : "放假日";
+        var name = weekend && !hasText(record.name()) ? null : holidayName(record);
         var type = weekend && name == null ? DayType.WEEKEND : DayType.HOLIDAY;
         return new CalendarDay(date, type, name, false, API_SOURCE);
+    }
+
+    private String holidayName(HolidayRecord record) {
+        var name = hasText(record.name()) ? record.name().trim() : null;
+        var category = hasText(record.holidaycategory()) ? record.holidaycategory().trim() : null;
+        if (category != null && category.contains("補假")) {
+            if (name == null) {
+                return category;
+            }
+            return name.contains("補假") ? name : name + "補假";
+        }
+        return name != null ? name : category != null ? category : "放假日";
     }
 
     private void seedMissingDays(LocalDate start, LocalDate end) {

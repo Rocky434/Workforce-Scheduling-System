@@ -56,6 +56,11 @@ class HolidayCalendarInitializerTest {
         assertEquals(DayType.HOLIDAY, compensatoryDay.getDayType());
         assertEquals("補假", compensatoryDay.getHolidayName());
 
+        var namedCompensatoryDay = days.get(LocalDate.of(2026, 2, 20));
+        assertEquals(DayType.HOLIDAY, namedCompensatoryDay.getDayType());
+        assertEquals("春節補假", namedCompensatoryDay.getHolidayName());
+        assertFalse(namedCompensatoryDay.isSchedulable());
+
         var adjustedWorkday = days.get(LocalDate.of(2026, 10, 17));
         assertEquals(DayType.WORKDAY, adjustedWorkday.getDayType());
         assertTrue(adjustedWorkday.isSchedulable());
@@ -102,7 +107,9 @@ class HolidayCalendarInitializerTest {
             records.add(record(date.format(java.time.format.DateTimeFormatter.BASIC_ISO_DATE), null,
                     weekend ? "是" : "否", weekend ? "星期六、星期日" : null));
         }
-        records.removeIf(item -> List.of("20261009", "20261010", "20261011", "20261017").contains(item.date()));
+        records.removeIf(item -> List.of("20260220", "20261009", "20261010", "20261011", "20261017")
+                .contains(item.date()));
+        records.add(record("20260220", "春節", "是", "補假"));
         records.add(record("20261010", "國慶日", "是", "放假之紀念日及節日"));
         records.add(record("20261011", null, "是", "星期六、星期日"));
         records.add(record("20261009", null, "是", "補假"));
