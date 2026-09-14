@@ -20,5 +20,4 @@ server:
 app:
   jwt-secret: ${JWT_SECRET:change-this-demo-secret-change-this-demo-secret}
   cors-origin: ${CORS_ORIGIN:http://localhost:5173}
-  demo-data: ${DEMO_DATA:true}
   holiday-api-url: ${HOLIDAY_API_URL:https://data.ntpc.gov.tw/api/datasets/308dcd75-6434-45bc-a95f-584da4fed251/json}
