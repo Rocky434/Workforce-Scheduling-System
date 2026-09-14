@@ -68,7 +68,8 @@ public class HolidayCalendarInitializer implements ApplicationRunner {
             log.info("Synchronized {} calendar days from the NTPC holiday API", days.size());
         } catch (RuntimeException ex) {
             seedMissingDays(start, end);
-            log.warn("NTPC holiday API is unavailable; retained cached holiday data", ex);
+            log.warn("Holiday API synchronization skipped; retained cached holiday data: {}", ex.getMessage());
+            log.debug("Holiday API synchronization failure", ex);
         }
     }
 
@@ -82,12 +83,17 @@ public class HolidayCalendarInitializer implements ApplicationRunner {
     }
 
     private boolean isCompleteYear(int year, Set<LocalDate> dates) {
+        var weekendCount = 0;
         for (var date = LocalDate.of(year, 1, 1); date.getYear() == year; date = date.plusDays(1)) {
-            if (!dates.contains(date)) {
+            var weekend = date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY;
+            if (weekend) {
+                weekendCount++;
+            }
+            if (weekend && !dates.contains(date)) {
                 return false;
             }
         }
-        return true;
+        return dates.size() > weekendCount;
     }
 
     private CalendarDay dayFor(LocalDate date, Map<LocalDate, HolidayRecord> officialRecords,

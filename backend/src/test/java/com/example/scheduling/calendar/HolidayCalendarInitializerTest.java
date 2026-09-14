@@ -104,8 +104,10 @@ class HolidayCalendarInitializerTest {
         var records = new ArrayList<HolidayRecord>();
         for (var date = LocalDate.of(2026, 1, 1); date.getYear() == 2026; date = date.plusDays(1)) {
             var weekend = date.getDayOfWeek().getValue() >= 6;
-            records.add(record(date.format(java.time.format.DateTimeFormatter.BASIC_ISO_DATE), null,
-                    weekend ? "是" : "否", weekend ? "星期六、星期日" : null));
+            if (weekend) {
+                records.add(record(date.format(java.time.format.DateTimeFormatter.BASIC_ISO_DATE), null,
+                        "是", "星期六、星期日"));
+            }
         }
         records.removeIf(item -> List.of("20260220", "20261009", "20261010", "20261011", "20261017")
                 .contains(item.date()));
