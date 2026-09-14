@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: scheduling
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/scheduling}
+    username: ${DB_USERNAME:scheduling_app}
+    password: ${DB_PASSWORD:change-me}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+  jackson:
+    time-zone: Asia/Taipei
+
+server:
+  port: ${SERVER_PORT:8080}
+
+app:
+  jwt-secret: ${JWT_SECRET:change-this-demo-secret-change-this-demo-secret}
+  cors-origin: ${CORS_ORIGIN:http://localhost:5173}
+  demo-data: ${DEMO_DATA:true}
+

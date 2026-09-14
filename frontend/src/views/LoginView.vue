@@ -1,0 +1,7 @@
+<script setup lang="ts">
+import { ref } from 'vue';import { useRouter } from 'vue-router';import { useAuthStore } from '../stores/auth'
+const email=ref('amy@example.com'),password=ref('Employee123!'),loading=ref(false),error=ref('');const auth=useAuthStore(),router=useRouter()
+async function submit(){loading.value=true;error.value='';try{await auth.login(email.value,password.value);router.push(auth.user?.role==='OWNER'?'/dashboard':'/schedule')}catch(e){error.value=(e as Error).message}finally{loading.value=false}}
+function demo(type:'employee'|'owner'){email.value=type==='owner'?'owner@example.com':'amy@example.com';password.value=type==='owner'?'Owner123!':'Employee123!'}
+</script>
+<template><div class="login-page"><section class="login-copy"><span class="eyebrow">SMART SCHEDULING</span><h1>排班，應該更簡單。</h1><p>員工快速完成次月排班，管理者即時掌握人力配置。</p><div class="feature-list"><span>✓ 自動排除週末與國定假日</span><span>✓ 即時顯示每日剩餘名額</span><span>✓ 月份統計與員工排行</span></div></section><section class="login-card"><div class="brand-mark large">班</div><h2>歡迎回來</h2><p>請使用公司帳號登入</p><form @submit.prevent="submit"><label>電子信箱<input v-model="email" type="email" required /></label><label>密碼<input v-model="password" type="password" required /></label><p v-if="error" class="error">{{error}}</p><button class="primary" :disabled="loading">{{loading?'登入中…':'登入'}}</button></form><div class="demo"><span>Demo 快速登入</span><button @click="demo('employee')">員工</button><button @click="demo('owner')">老闆</button></div></section></div></template>
