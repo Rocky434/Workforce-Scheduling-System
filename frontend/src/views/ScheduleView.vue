@@ -2,7 +2,7 @@
 import { computed, onMounted, ref } from "vue";
 import { api } from "../api";
 import type { MonthView, CalendarDay } from "../types";
-const data = ref<MonthView | null>(null),
+const monthView = ref<MonthView | null>(null),
   selected = ref(new Set<string>()),
   initialSelected = ref(new Set<string>()),
   loading = ref(true),
@@ -11,15 +11,15 @@ const data = ref<MonthView | null>(null),
   error = ref("");
 const weekdays = ["日", "一", "二", "三", "四", "五", "六"];
 const monthLabel = computed(() =>
-  data.value ? `${data.value.month.replace("-", " 年 ")} 月` : "",
+  monthView.value ? `${monthView.value.month.replace("-", " 年 ")} 月` : "",
 );
 const cells = computed(() =>
-  data.value
+  monthView.value
     ? [
-        ...Array(new Date(`${data.value.month}-01T00:00:00`).getDay()).fill(
+        ...Array(new Date(`${monthView.value.month}-01T00:00:00`).getDay()).fill(
           null,
         ),
-        ...data.value.days,
+        ...monthView.value.days,
       ]
     : [],
 );
@@ -27,7 +27,7 @@ function applyMonthView(view: MonthView) {
   const selectedDates = view.days
     .filter((day) => day.selected)
     .map((day) => day.date);
-  data.value = view;
+  monthView.value = view;
   selected.value = new Set(selectedDates);
   initialSelected.value = new Set(selectedDates);
 }
@@ -41,10 +41,10 @@ function assignedCount(day: CalendarDay) {
 async function load() {
   loading.value = true;
   try {
-    const r = await api.get("/schedules/me");
-    applyMonthView(r.data);
-  } catch (e) {
-    error.value = (e as Error).message;
+    const response = await api.get<MonthView>("/schedules/me");
+    applyMonthView(response.data);
+  } catch (loadError) {
+    error.value = (loadError as Error).message;
   } finally {
     loading.value = false;
   }
@@ -53,7 +53,7 @@ function toggle(day: CalendarDay) {
   if (
     !day.schedulable ||
     (!selected.value.has(day.date) &&
-      assignedCount(day) >= data.value!.dailyCapacity)
+      assignedCount(day) >= monthView.value!.dailyCapacity)
   )
     return;
   const copy = new Set(selected.value);
@@ -61,7 +61,7 @@ function toggle(day: CalendarDay) {
   selected.value = copy;
 }
 async function save() {
-  if (!data.value) return;
+  if (!monthView.value) return;
   saving.value = true;
   error.value = "";
   message.value = "";
@@ -69,14 +69,14 @@ async function save() {
     applyMonthView(
       (
         await api.put("/schedules/me", {
-          month: data.value.month,
+          month: monthView.value.month,
           dates: [...selected.value],
         })
       ).data,
     );
     message.value = "班表已成功儲存";
-  } catch (e) {
-    error.value = (e as Error).message;
+  } catch (saveError) {
+    error.value = (saveError as Error).message;
   } finally {
     saving.value = false;
   }
@@ -85,23 +85,23 @@ onMounted(load);
 </script>
 <template>
   <div v-if="loading" class="panel">載入班表中…</div>
-  <template v-else-if="data"
+  <template v-else-if="monthView"
     ><section class="summary-row">
       <div>
         <span>排班月份</span><strong>{{ monthLabel }}</strong>
       </div>
       <div>
         <span>已選天數</span
-        ><strong :class="{ warn: selected.size < data.minimumDays }"
+        ><strong :class="{ warn: selected.size < monthView.minimumDays }"
           >{{ selected.size }} 天</strong
         >
       </div>
       <div>
         <span>排班規則</span
-        ><strong>{{ data.minimumDays }}–{{ data.maximumDays }} 天</strong>
+        ><strong>{{ monthView.minimumDays }}–{{ monthView.maximumDays }} 天</strong>
       </div>
       <div>
-        <span>每日名額</span><strong>{{ data.dailyCapacity }} 人</strong>
+        <span>每日名額</span><strong>{{ monthView.dailyCapacity }} 人</strong>
       </div>
     </section>
     <section class="panel calendar-panel">
@@ -121,8 +121,8 @@ onMounted(load);
       </div>
       <div class="calendar">
         <div
-          v-for="(day, i) in cells"
-          :key="i"
+          v-for="(day, cellIndex) in cells"
+          :key="cellIndex"
           class="day"
           :class="{
             blank: !day,
@@ -132,7 +132,7 @@ onMounted(load);
               day && day.dayType === 'HOLIDAY' && day.schedulable,
             full:
               day &&
-              assignedCount(day) >= data.dailyCapacity &&
+              assignedCount(day) >= monthView.dailyCapacity &&
               !selected.has(day.date),
           }"
           @click="day && toggle(day)"
@@ -146,7 +146,7 @@ onMounted(load);
             ><span v-else>{{
               selected.has(day.date)
                 ? "✓ 已選"
-                : `${assignedCount(day)}/${data.dailyCapacity} 人`
+                : `${assignedCount(day)}/${monthView.dailyCapacity} 人`
             }}</span></template
           >
         </div>
@@ -156,7 +156,7 @@ onMounted(load);
       <div>
         <strong>已選 {{ selected.size }} 天</strong
         ><span
-          >最少 {{ data.minimumDays }} 天，最多 {{ data.maximumDays }} 天</span
+          >最少 {{ monthView.minimumDays }} 天，最多 {{ monthView.maximumDays }} 天</span
         ><span v-if="message" class="success">{{ message }}</span
         ><span v-if="error" class="error">{{ error }}</span>
       </div>
@@ -164,8 +164,8 @@ onMounted(load);
         class="primary"
         :disabled="
           saving ||
-          selected.size < data.minimumDays ||
-          selected.size > data.maximumDays
+          selected.size < monthView.minimumDays ||
+          selected.size > monthView.maximumDays
         "
         @click="save"
       >

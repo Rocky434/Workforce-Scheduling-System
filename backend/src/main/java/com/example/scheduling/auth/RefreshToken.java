@@ -89,7 +89,6 @@ public class RefreshToken {
         }
     }
 
-
     public void replaceWith(RefreshToken replacement, Instant instant) {
         revoke(instant);
         replacedBy = replacement;

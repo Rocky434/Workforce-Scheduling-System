@@ -5,6 +5,6 @@ import java.util.*;
 
 public interface UserRepository extends JpaRepository<AppUser, Long> {
     Optional<AppUser> findByEmailIgnoreCase(String email);
+
     List<AppUser> findAllByRoleAndActiveTrueOrderByDisplayName(AppUser.Role role);
 }
-
