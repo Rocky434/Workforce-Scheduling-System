@@ -43,7 +43,10 @@ public class RefreshTokenService {
         }
 
         var now = Instant.now();
-        var current = tokens.findByTokenHashForUpdate(hash(rawToken)).orElseThrow(this::unauthorized);
+        var tokenHash = hash(rawToken);
+        var familyId = tokens.findFamilyIdByTokenHash(tokenHash).orElseThrow(this::unauthorized);
+        tokens.lockFamily(familyId);
+        var current = tokens.findByTokenHashForUpdate(tokenHash).orElseThrow(this::unauthorized);
         if (!current.isUsableAt(now) || !current.getUser().isActive()) {
             if (current.getRevokedAt() != null && current.getReplacedBy() != null) {
                 tokens.revokeFamily(current.getFamilyId(), now);
@@ -61,7 +64,10 @@ public class RefreshTokenService {
         if (rawToken == null || rawToken.isBlank()) {
             return;
         }
-        tokens.findByTokenHashForUpdate(hash(rawToken)).ifPresent(token -> token.revoke(Instant.now()));
+        tokens.findFamilyIdByTokenHash(hash(rawToken)).ifPresent(familyId -> {
+            tokens.lockFamily(familyId);
+            tokens.revokeFamily(familyId, Instant.now());
+        });
     }
 
     private IssuedRefreshToken issue(AppUser user, Instant now, UUID familyId, Instant absoluteExpiresAt) {

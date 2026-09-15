@@ -30,11 +30,14 @@ class RefreshTokenServiceTest {
 
         when(repository.findByTokenHashForUpdate(persistedOriginal.getTokenHash()))
                 .thenReturn(Optional.of(persistedOriginal));
+        when(repository.findFamilyIdByTokenHash(persistedOriginal.getTokenHash()))
+                .thenReturn(Optional.of(persistedOriginal.getFamilyId()));
         var rotated = service.rotate(original.value());
 
         assertSame(user, rotated.user());
         assertNotEquals(original.value(), rotated.refreshToken().value());
         assertNotNull(persistedOriginal.getRevokedAt());
+        verify(repository).lockFamily(persistedOriginal.getFamilyId());
         verify(repository, times(2)).save(any(RefreshToken.class));
     }
 
@@ -47,11 +50,29 @@ class RefreshTokenServiceTest {
         var persistedOriginal = tokenCaptor.getValue();
         when(repository.findByTokenHashForUpdate(persistedOriginal.getTokenHash()))
                 .thenReturn(Optional.of(persistedOriginal));
+        when(repository.findFamilyIdByTokenHash(persistedOriginal.getTokenHash()))
+                .thenReturn(Optional.of(persistedOriginal.getFamilyId()));
 
         service.rotate(original.value());
 
         var exception = assertThrows(ResponseStatusException.class, () -> service.rotate(original.value()));
         assertEquals(401, exception.getStatusCode().value());
         verify(repository).revokeFamily(eq(persistedOriginal.getFamilyId()), any(java.time.Instant.class));
+    }
+
+    @Test
+    void logoutRevokesTheEntireTokenFamily() {
+        when(repository.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
+        var issued = service.issue(user);
+        var tokenCaptor = ArgumentCaptor.forClass(RefreshToken.class);
+        verify(repository).save(tokenCaptor.capture());
+        var persisted = tokenCaptor.getValue();
+        when(repository.findFamilyIdByTokenHash(persisted.getTokenHash()))
+                .thenReturn(Optional.of(persisted.getFamilyId()));
+
+        service.revoke(issued.value());
+
+        verify(repository).lockFamily(persisted.getFamilyId());
+        verify(repository).revokeFamily(eq(persisted.getFamilyId()), any(java.time.Instant.class));
     }
 }
