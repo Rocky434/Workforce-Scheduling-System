@@ -3,7 +3,9 @@
 *.iml
 frontend/node_modules/
 frontend/dist/
+ppt-build/node_modules/
 backend/target/
 .env
 *.local
-
+.env.*
+!.env.example

@@ -1,5 +1,12 @@
-$ErrorActionPreference = 'Stop'
+﻿$ErrorActionPreference = 'Stop'
 $root = Split-Path $PSScriptRoot -Parent
-$env:Path = 'C:\Users\necro\AppData\Local\DevTools\node-v24.21.0-win-x64;' + $env:Path
 Set-Location "$root\frontend"
+
+if (-not (Get-Command node -ErrorAction SilentlyContinue)) {
+    throw 'Node.js was not found. Install Node.js LTS first.'
+}
+
+if (-not (Test-Path -LiteralPath '.\node_modules\.bin\vite.cmd')) {
+    & npm.cmd ci
+}
 & npm.cmd run dev

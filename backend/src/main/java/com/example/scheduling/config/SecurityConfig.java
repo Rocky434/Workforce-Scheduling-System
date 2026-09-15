@@ -43,43 +43,43 @@ public class SecurityConfig {
 
     @Bean
     JwtDecoder jwtDecoder(SecretKey key) {
-        var decoder = NimbusJwtDecoder.withSecretKey(key).build();
+        var jwtDecoder = NimbusJwtDecoder.withSecretKey(key).build();
         OAuth2TokenValidator<Jwt> tokenTypeValidator = jwt -> "access".equals(jwt.getClaimAsString("token_type"))
                 ? OAuth2TokenValidatorResult.success()
                 : OAuth2TokenValidatorResult.failure(
                         new OAuth2Error("invalid_token", "Only access tokens may authorize API requests", null));
-        decoder.setJwtValidator(new DelegatingOAuth2TokenValidator<>(
+        jwtDecoder.setJwtValidator(new DelegatingOAuth2TokenValidator<>(
                 JwtValidators.createDefaultWithIssuer("scheduling"), tokenTypeValidator));
-        return decoder;
+        return jwtDecoder;
     }
 
     @Bean
     JwtAuthenticationConverter jwtAuthenticationConverter() {
-        var converter = new JwtAuthenticationConverter();
-        converter.setJwtGrantedAuthoritiesConverter(
+        var authenticationConverter = new JwtAuthenticationConverter();
+        authenticationConverter.setJwtGrantedAuthoritiesConverter(
                 jwt -> List.of(new SimpleGrantedAuthority("ROLE_" + jwt.getClaimAsString("role"))));
-        return converter;
+        return authenticationConverter;
     }
 
     @Bean
-    SecurityFilterChain security(HttpSecurity http, JwtAuthenticationConverter converter) throws Exception {
+    SecurityFilterChain security(HttpSecurity http, JwtAuthenticationConverter authenticationConverter) throws Exception {
         return http.csrf(csrf -> csrf.disable()).cors(cors -> {
         }).sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(a -> a.requestMatchers("/api/auth/login", "/api/auth/refresh",
                         "/api/auth/logout", "/actuator/health").permitAll()
                         .anyRequest().authenticated())
-                .oauth2ResourceServer(o -> o.jwt(j -> j.jwtAuthenticationConverter(converter))).build();
+                .oauth2ResourceServer(o -> o.jwt(j -> j.jwtAuthenticationConverter(authenticationConverter))).build();
     }
 
     @Bean
     CorsConfigurationSource cors(@Value("${app.cors-origin}") String origin) {
-        var c = new CorsConfiguration();
-        c.setAllowedOrigins(List.of(origin));
-        c.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        c.setAllowedHeaders(List.of("Authorization", "Content-Type", "X-Requested-With"));
-        c.setAllowCredentials(true);
-        var s = new UrlBasedCorsConfigurationSource();
-        s.registerCorsConfiguration("/**", c);
-        return s;
+        var corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowedOrigins(List.of(origin));
+        corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        corsConfiguration.setAllowedHeaders(List.of("Authorization", "Content-Type", "X-Requested-With"));
+        corsConfiguration.setAllowCredentials(true);
+        var corsConfigurationSource = new UrlBasedCorsConfigurationSource();
+        corsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
+        return corsConfigurationSource;
     }
 }

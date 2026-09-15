@@ -1,0 +1,140 @@
+{"kind":"deck","id":"pr/swkikl","name":"Deck"}
+{"kind":"layout","layoutId":"f533ae99-cd87-4c6f-8f37-d97d3a0a0359","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"63dc6073-09c1-4781-ba1b-70aa098fc29b","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/rjrtdl","slide":1,"title":"排班系統","textShapes":4}
+{"kind":"shape","id":"sh/wz6d8725","slide":1,"bbox":[760,0,520,720]}
+{"kind":"shape","id":"sh/vydczml0","slide":1,"bbox":[840,80,260,560]}
+{"kind":"textbox","id":"sh/ax4b6hkf","slide":1,"text":"排班系統","textPreview":"排班系統","textChars":4,"textLines":1,"bbox":[84,150,620,86]}
+{"kind":"textbox","id":"sh/9wvuxc3u","slide":1,"text":"技術設計與實作重點","textPreview":"技術設計與實作重點","textChars":9,"textLines":1,"bbox":[88,248,600,54]}
+{"kind":"textbox","id":"sh/8vmt4729","slide":1,"text":"面試作品解說","textPreview":"面試作品解說","textChars":6,"textLines":1,"bbox":[90,334,400,32]}
+{"kind":"textbox","id":"sh/nudcv2lo","slide":1,"text":"Vue 3 × Spring Boot × PostgreSQL","textPreview":"Vue 3 × Spring Boot × PostgreSQL","textChars":32,"textLines":1,"bbox":[90,592,650,32]}
+{"kind":"notes","id":"nt/rjrtdl","slide":1,"text":"簡報目的：用 7 張投影片說清楚系統架構、核心規則與工程取捨。"}
+{"kind":"slide","id":"sl/11nm35","slide":2,"title":"面試作品解說","textShapes":15}
+{"kind":"textbox","id":"sh/j6xgjmx4","slide":2,"text":"面試作品解說","textPreview":"面試作品解說","textChars":6,"textLines":1,"bbox":[72,34,500,24]}
+{"kind":"textbox","id":"sh/476xs7yp","slide":2,"text":"專案目標與使用者流程","textPreview":"專案目標與使用者流程","textChars":10,"textLines":1,"bbox":[72,64,1100,54]}
+{"kind":"shape","id":"sh/58fylcfa","slide":2,"bbox":[72,132,1136,0]}
+{"kind":"textbox","id":"sh/u14fmxgn","slide":2,"text":"把「次月可排班」變成可控、可追蹤的流程","textPreview":"把「次月可排班」變成可控、可追蹤的流程","textChars":19,"textLines":1,"bbox":[72,158,900,38]}
+{"kind":"shape","id":"sh/v2xgf2x8","slide":2,"bbox":[78,250,238,190]}
+{"kind":"textbox","id":"sh/w36xo7yt","slide":2,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[96,270,60,30]}
+{"kind":"textbox","id":"sh/h4fyhcfe","slide":2,"text":"員工登入","textPreview":"員工登入","textChars":4,"textLines":1,"bbox":[96,318,200,34]}
+{"kind":"textbox","id":"sh/ex8fy1wr","slide":2,"text":"JWT 驗證身份","textPreview":"JWT 驗證身份","textChars":8,"textLines":1,"bbox":[96,365,195,48]}
+{"kind":"shape","id":"sh/fyhgr6xc","slide":2,"bbox":[316,345,40,0]}
+{"kind":"shape","id":"sh/3atgzu1k","slide":2,"bbox":[360,250,238,190]}
+{"kind":"textbox","id":"sh/29kf6pkz","slide":2,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[378,270,60,30]}
+{"kind":"textbox","id":"sh/pwvy14ja","slide":2,"text":"查看可排日期","textPreview":"查看可排日期","textChars":6,"textLines":1,"bbox":[378,318,200,34]}
+{"kind":"textbox","id":"sh/4vmx8z25","slide":2,"text":"週末與國定假日不可排","textPreview":"週末與國定假日不可排","textChars":10,"textLines":1,"bbox":[378,365,195,48]}
+{"kind":"shape","id":"sh/rydg3u1g","slide":2,"bbox":[598,345,40,0]}
+{"kind":"shape","id":"sh/qx4fa9kv","slide":2,"bbox":[642,250,238,190]}
+{"kind":"textbox","id":"sh/d0vy54jm","slide":2,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[660,270,60,30]}
+{"kind":"textbox","id":"sh/czmxwz21","slide":2,"text":"提交 6–15 天","textPreview":"提交 6–15 天","textChars":9,"textLines":1,"bbox":[660,318,200,34]}
+{"kind":"textbox","id":"sh/z2xg7e1s","slide":2,"text":"前端提示、後端再驗證","textPreview":"前端提示、後端再驗證","textChars":10,"textLines":1,"bbox":[660,365,195,48]}
+{"kind":"shape","id":"sh/y14fy907","slide":2,"bbox":[880,345,40,0]}
+{"kind":"shape","id":"sh/ax8j6d4f","slide":2,"bbox":[924,250,238,190]}
+{"kind":"textbox","id":"sh/vyh0zil0","slide":2,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[942,270,60,30]}
+{"kind":"textbox","id":"sh/wzq18n25","slide":2,"text":"老闆檢視總覽","textPreview":"老闆檢視總覽","textChars":6,"textLines":1,"bbox":[942,318,200,34]}
+{"kind":"textbox","id":"sh/xkzi1s3q","slide":2,"text":"月／年統計與排名","textPreview":"月／年統計與排名","textChars":8,"textLines":1,"bbox":[942,365,195,48]}
+{"kind":"notes","id":"nt/11nm35","slide":2,"text":"面試說法：先從使用者需求切入，再連到技術設計。系統刻意把規則放在後端做最後防線。"}
+{"kind":"slide","id":"sl/9ybm4u","slide":3,"title":"面試作品解說","textShapes":11}
+{"kind":"textbox","id":"sh/qd83i5cz","slide":3,"text":"面試作品解說","textPreview":"面試作品解說","textChars":6,"textLines":1,"bbox":[72,34,500,24]}
+{"kind":"textbox","id":"sh/dgj2t0va","slide":3,"text":"整體架構","textPreview":"整體架構","textChars":4,"textLines":1,"bbox":[72,64,1100,54]}
+{"kind":"shape","id":"sh/cfalkvup","slide":3,"bbox":[72,132,1136,0]}
+{"kind":"textbox","id":"sh/zi1kvadg","slide":3,"text":"前後端分離，讓畫面、商業規則與資料持久化各自負責","textPreview":"前後端分離，讓畫面、商業規則與資料持久化各自負責","textChars":24,"textLines":1,"bbox":[72,158,980,36]}
+{"kind":"shape","id":"sh/yhs3m5cv","slide":3,"bbox":[90,250,280,160]}
+{"kind":"textbox","id":"sh/l4jmxkvm","slide":3,"text":"Vue 3 前端","textPreview":"Vue 3 前端","textChars":8,"textLines":1,"bbox":[115,275,230,36]}
+{"kind":"textbox","id":"sh/0jalofu1","slide":3,"text":"TypeScript\nVue Router + Pinia\nAxios API client","textPreview":"TypeScript | Vue Router + Pinia | Axios API client","textChars":46,"textLines":3,"bbox":[115,325,220,70]}
+{"kind":"shape","id":"sh/n6l4zadc","slide":3,"bbox":[500,250,280,160]}
+{"kind":"textbox","id":"sh/m5s3qpcr","slide":3,"text":"Spring Boot API","textPreview":"Spring Boot API","textChars":15,"textLines":1,"bbox":[525,275,230,36]}
+{"kind":"textbox","id":"sh/0z2pwni5","slide":3,"text":"Controller / Service\nSpring Security\nValidation + Transaction","textPreview":"Controller / Service | Spring Security | Validation + Transaction","textChars":61,"textLines":3,"bbox":[525,325,240,70]}
+{"kind":"shape","id":"sh/10b65sza","slide":3,"bbox":[910,250,280,160]}
+{"kind":"textbox","id":"sh/exk7ux0z","slide":3,"text":"PostgreSQL","textPreview":"PostgreSQL","textChars":10,"textLines":1,"bbox":[935,275,230,36]}
+{"kind":"textbox","id":"sh/fyto32hk","slide":3,"text":"JPA Repository\nFlyway migration\nUnique constraints + index","textPreview":"JPA Repository | Flyway migration | Unique constraints + index","textChars":58,"textLines":3,"bbox":[935,325,235,70]}
+{"kind":"shape","id":"sh/o3mp07i1","slide":3,"bbox":[370,330,130,0]}
+{"kind":"shape","id":"sh/p4v69czm","slide":3,"bbox":[780,330,130,0]}
+{"kind":"textbox","id":"sh/21k7yx0v","slide":3,"text":"Bearer JWT","textPreview":"Bearer JWT","textChars":10,"textLines":1,"bbox":[396,292,100,26]}
+{"kind":"textbox","id":"sh/n2to72hg","slide":3,"text":"SQL / JPA","textPreview":"SQL / JPA","textChars":9,"textLines":1,"bbox":[810,292,100,26]}
+{"kind":"notes","id":"nt/9ybm4u","slide":3,"text":"面試說法：前端負責體驗，後端負責可信規則，資料庫負責一致性與查詢效率。"}
+{"kind":"slide","id":"sl/sxvbwx","slide":4,"title":"面試作品解說","textShapes":7}
+{"kind":"textbox","id":"sh/alczqxk3","slide":4,"text":"面試作品解說","textPreview":"面試作品解說","textChars":6,"textLines":1,"bbox":[72,34,500,24]}
+{"kind":"textbox","id":"sh/xonylsju","slide":4,"text":"核心規則：排班不是單純 CRUD","textPreview":"核心規則：排班不是單純 CRUD","textChars":16,"textLines":1,"bbox":[72,64,1100,54]}
+{"kind":"shape","id":"sh/wnehs729","slide":4,"bbox":[72,132,1136,0]}
+{"kind":"textbox","id":"sh/jq5gn21k","slide":4,"text":"同一個日期最多兩名員工，競態條件要在交易內解決","textPreview":"同一個日期最多兩名員工，競態條件要在交易內解決","textChars":23,"textLines":1,"bbox":[72,158,1050,36]}
+{"kind":"shape","id":"sh/ipwzuxkz","slide":4,"bbox":[90,245,470,250]}
+{"kind":"textbox","id":"sh/5snypcjq","slide":4,"text":"提交班表時的後端流程","textPreview":"提交班表時的後端流程","textChars":10,"textLines":1,"bbox":[120,272,380,32]}
+{"kind":"textbox","id":"sh/krehw725","slide":4,"text":"1  驗證月份與天數範圍\n2  檢查 calendar_days 是否可排\n3  以交易鎖定並計算當日人數\n4  通過才寫入 schedule_entries","textPreview":"1  驗證月份與天數範圍 | 2  檢查 calendar_days 是否可排 | 3  以交易鎖定並計算當日人數 | 4  通過才寫入 schedule_entries","textChars":79,"textLines":4,"bbox":[120,330,390,120]}
+{"kind":"shape","id":"sh/7ep0rm1w","slide":4,"bbox":[665,245,500,250]}
+{"kind":"textbox","id":"sh/6dwzyh0b","slide":4,"text":"資料庫保護","textPreview":"資料庫保護","textChars":5,"textLines":1,"bbox":[700,272,380,32]}
+{"kind":"textbox","id":"sh/kjy1wv29","slide":4,"text":"UNIQUE(employee_id, work_date)\n避免同一員工重複排同一天\n\nidx_schedule_work_date\n加速月曆與統計查詢","textPreview":"UNIQUE(employee_id, work_date) | 避免同一員工重複排同一天 |  | idx_schedule_work_date | 加速月曆與統計查詢","textChars":77,"textLines":5,"bbox":[700,330,410,120]}
+{"kind":"notes","id":"nt/sxvbwx","slide":4,"text":"面試追問重點：前端的 disabled 只是 UX，不能取代後端交易與資料庫約束。"}
+{"kind":"slide","id":"sl/4xekuk","slide":5,"title":"面試作品解說","textShapes":8}
+{"kind":"textbox","id":"sh/ils329wj","slide":5,"text":"面試作品解說","textPreview":"面試作品解說","textChars":6,"textLines":1,"bbox":[72,34,500,24]}
+{"kind":"textbox","id":"sh/5ojmxofu","slide":5,"text":"權限與狀態管理","textPreview":"權限與狀態管理","textChars":7,"textLines":1,"bbox":[72,64,1100,54]}
+{"kind":"shape","id":"sh/4nal4je9","slide":5,"bbox":[72,132,1136,0]}
+{"kind":"textbox","id":"sh/vy14ruxs","slide":5,"text":"JWT + Route Guard 形成兩層保護","textPreview":"JWT + Route Guard 形成兩層保護","textChars":24,"textLines":1,"bbox":[72,158,800,36]}
+{"kind":"shape","id":"sh/ux83y9w7","slide":5,"bbox":[100,235,430,265]}
+{"kind":"textbox","id":"sh/hkjmt4fy","slide":5,"text":"前端：導航層","textPreview":"前端：導航層","textChars":6,"textLines":1,"bbox":[130,265,300,32]}
+{"kind":"textbox","id":"sh/gjal0zed","slide":5,"text":"記憶體保存 access token\nHttpOnly cookie 保存 refresh token\nrouter.beforeEach 先 initialize\n\nOWNER → /dashboard\nEMPLOYEE → /schedule","textPreview":"記憶體保存 access token | HttpOnly cookie 保存 refresh token | router.beforeEach 先 initialize |  | OWNER → /dashboard | EMPLOYEE → /schedule","textChars":123,"textLines":6,"bbox":[130,320,340,140]}
+{"kind":"shape","id":"sh/ful43yxw","slide":5,"bbox":[680,235,430,265]}
+{"kind":"textbox","id":"sh/etcnatwb","slide":5,"text":"後端：API 層","textPreview":"後端：API 層","textChars":8,"textLines":1,"bbox":[710,265,300,32]}
+{"kind":"textbox","id":"sh/gjalkfmh","slide":5,"text":"Spring Security 驗證 JWT\nrefresh token rotation\n角色限制員工與老闆 API\nApiExceptionHandler 統一錯誤格式","textPreview":"Spring Security 驗證 JWT | refresh token rotation | 角色限制員工與老闆 API | ApiExceptionHandler 統一錯誤格式","textChars":86,"textLines":4,"bbox":[710,320,350,140]}
+{"kind":"shape","id":"sh/h4jmd0n2","slide":5,"bbox":[530,365,150,0]}
+{"kind":"textbox","id":"sh/uhs3i54b","slide":5,"text":"不能只相信前端","textPreview":"不能只相信前端","textChars":7,"textLines":1,"bbox":[540,325,140,32]}
+{"kind":"notes","id":"nt/4xekuk","slide":5,"text":"面試說法：前端 guard 讓使用者體驗清楚，後端 security 才是真正的授權邊界。"}
+{"kind":"slide","id":"sl/ra3d4z","slide":6,"title":"面試作品解說","textShapes":15}
+{"kind":"textbox","id":"sh/y543qxwv","slide":6,"text":"面試作品解說","textPreview":"面試作品解說","textChars":6,"textLines":1,"bbox":[72,34,500,24]}
+{"kind":"textbox","id":"sh/lsvm1cv6","slide":6,"text":"國定假日與資料生命週期","textPreview":"國定假日與資料生命週期","textChars":11,"textLines":1,"bbox":[72,64,1100,54]}
+{"kind":"shape","id":"sh/krmls7el","slide":6,"bbox":[72,132,1136,0]}
+{"kind":"textbox","id":"sh/7ux43mdc","slide":6,"text":"把外部日曆資料轉成內部可查詢的規則資料","textPreview":"把外部日曆資料轉成內部可查詢的規則資料","textChars":19,"textLines":1,"bbox":[72,158,1050,36]}
+{"kind":"shape","id":"sh/6to3uhwr","slide":6,"bbox":[80,275,235,170]}
+{"kind":"textbox","id":"sh/twfm5cvi","slide":6,"text":"外部來源","textPreview":"外部來源","textChars":4,"textLines":1,"bbox":[98,295,190,26]}
+{"kind":"textbox","id":"sh/8v6lw7ex","slide":6,"text":"NtpcHolidayClient","textPreview":"NtpcHolidayClient","textChars":17,"textLines":1,"bbox":[98,335,200,30]}
+{"kind":"textbox","id":"sh/vyx47md8","slide":6,"text":"取得假日資料","textPreview":"取得假日資料","textChars":6,"textLines":1,"bbox":[98,382,190,40]}
+{"kind":"shape","id":"sh/uxo3yhw3","slide":6,"bbox":[315,360,40,0]}
+{"kind":"shape","id":"sh/ofm1sf2h","slide":6,"bbox":[365,275,235,170]}
+{"kind":"textbox","id":"sh/pgv2l032","slide":6,"text":"初始化 / 更新","textPreview":"初始化 / 更新","textChars":8,"textLines":1,"bbox":[383,295,190,26]}
+{"kind":"textbox","id":"sh/2t4jq5kb","slide":6,"text":"HolidayCalendarInitializer","textPreview":"HolidayCalendarInitializer","textChars":26,"textLines":1,"bbox":[383,335,200,30]}
+{"kind":"textbox","id":"sh/nudkjalw","slide":6,"text":"寫入 calendar_days","textPreview":"寫入 calendar_days","textChars":16,"textLines":1,"bbox":[383,382,190,40]}
+{"kind":"shape","id":"sh/cj6lwf2d","slide":6,"bbox":[600,360,40,0]}
+{"kind":"shape","id":"sh/xkf2pk3y","slide":6,"bbox":[650,275,235,170]}
+{"kind":"textbox","id":"sh/ah4ju5kn","slide":6,"text":"業務判斷","textPreview":"業務判斷","textChars":4,"textLines":1,"bbox":[668,295,190,26]}
+{"kind":"textbox","id":"sh/bidknals","slide":6,"text":"ScheduleService","textPreview":"ScheduleService","textChars":15,"textLines":1,"bbox":[668,335,200,30]}
+{"kind":"textbox","id":"sh/kn6l0z2p","slide":6,"text":"依 schedulable 擋排班","textPreview":"依 schedulable 擋排班","textChars":17,"textLines":1,"bbox":[668,382,190,40]}
+{"kind":"shape","id":"sh/lof2t43a","slide":6,"bbox":[885,360,40,0]}
+{"kind":"shape","id":"sh/t4b2dkve","slide":6,"bbox":[935,275,235,170]}
+{"kind":"textbox","id":"sh/83214fut","slide":6,"text":"畫面呈現","textPreview":"畫面呈現","textChars":4,"textLines":1,"bbox":[953,295,190,26]}
+{"kind":"textbox","id":"sh/72tkbud8","slide":6,"text":"ScheduleView","textPreview":"ScheduleView","textChars":12,"textLines":1,"bbox":[953,335,200,30]}
+{"kind":"textbox","id":"sh/61kj2pcn","slide":6,"text":"顯示假日名稱與狀態","textPreview":"顯示假日名稱與狀態","textChars":9,"textLines":1,"bbox":[953,382,190,40]}
+{"kind":"notes","id":"nt/ra3d4z","slide":6,"text":"面試說法：外部 API 只在整合層處理，業務層只依賴 calendar_days，降低耦合並方便測試。"}
+{"kind":"slide","id":"sl/nkludv","slide":7,"title":"面試作品解說","textShapes":9}
+{"kind":"textbox","id":"sh/8n2d0jm9","slide":7,"text":"面試作品解說","textPreview":"面試作品解說","textChars":6,"textLines":1,"bbox":[72,34,500,24]}
+{"kind":"textbox","id":"sh/7mtcre5o","slide":7,"text":"測試與可維護性","textPreview":"測試與可維護性","textChars":7,"textLines":1,"bbox":[72,64,1100,54]}
+{"kind":"shape","id":"sh/m1kvyt43","slide":7,"bbox":[72,132,1136,0]}
+{"kind":"textbox","id":"sh/hsvux8nq","slide":7,"text":"測試覆蓋最容易出錯的規則，而不是只測 happy path","textPreview":"測試覆蓋最容易出錯的規則，而不是只測 happy path","textChars":29,"textLines":1,"bbox":[72,158,1080,36]}
+{"kind":"shape","id":"sh/grmd43m5","slide":7,"bbox":[90,245,330,245]}
+{"kind":"textbox","id":"sh/vqtcvy5k","slide":7,"text":"後端單元測試","textPreview":"後端單元測試","textChars":6,"textLines":1,"bbox":[120,275,260,32]}
+{"kind":"textbox","id":"sh/upkv2t4z","slide":7,"text":"ScheduleServiceTest\n涵蓋天數範圍、假日、\n容量與重複排班規則","textPreview":"ScheduleServiceTest | 涵蓋天數範圍、假日、 | 容量與重複排班規則","textChars":40,"textLines":3,"bbox":[120,340,260,92]}
+{"kind":"shape","id":"sh/5wve18nm","slide":7,"bbox":[475,245,330,245]}
+{"kind":"textbox","id":"sh/4vmd83m1","slide":7,"text":"Controller 測試","textPreview":"Controller 測試","textChars":13,"textLines":1,"bbox":[505,275,260,32]}
+{"kind":"textbox","id":"sh/6hgfyhkz","slide":7,"text":"OwnerReportControllerTest\n驗證查詢結果與角色邊界","textPreview":"OwnerReportControllerTest | 驗證查詢結果與角色邊界","textChars":37,"textLines":2,"bbox":[505,340,260,92]}
+{"kind":"shape","id":"sh/ripwrmlk","slide":7,"bbox":[860,245,330,245]}
+{"kind":"textbox","id":"sh/sjyx0r25","slide":7,"text":"建置驗證","textPreview":"建置驗證","textChars":4,"textLines":1,"bbox":[890,275,260,32]}
+{"kind":"textbox","id":"sh/t47etc3q","slide":7,"text":"Vue type-check + Vite build\nMaven test\nFlyway migration 可重現","textPreview":"Vue type-check + Vite build | Maven test | Flyway migration 可重現","textChars":59,"textLines":3,"bbox":[890,340,260,92]}
+{"kind":"notes","id":"nt/nkludv","slide":7,"text":"面試說法：把商業規則集中在 service，測試可以直接驗證，不需要每次都透過瀏覽器操作。"}
+{"kind":"slide","id":"sl/fv3jb8","slide":8,"title":"面試作品解說","textShapes":12}
+{"kind":"textbox","id":"sh/zuxkjmpc","slide":8,"text":"面試作品解說","textPreview":"面試作品解說","textChars":6,"textLines":1,"bbox":[72,34,500,24]}
+{"kind":"textbox","id":"sh/kv61sr6x","slide":8,"text":"面試總結：我在這個專案展示的能力","textPreview":"面試總結：我在這個專案展示的能力","textChars":16,"textLines":1,"bbox":[72,64,1100,54]}
+{"kind":"shape","id":"sh/lwf2lw7i","slide":8,"bbox":[72,132,1136,0]}
+{"kind":"textbox","id":"sh/mhoju1o3","slide":8,"text":"從需求拆解，到一致性、安全性與可維護性的完整思考","textPreview":"從需求拆解，到一致性、安全性與可維護性的完整思考","textChars":24,"textLines":1,"bbox":[72,158,1100,36]}
+{"kind":"textbox","id":"sh/7ihknmpo","slide":8,"text":"架構設計","textPreview":"架構設計","textChars":4,"textLines":1,"bbox":[100,245,220,32]}
+{"kind":"shape","id":"sh/8jq1wr6t","slide":8,"bbox":[330,263,60,0]}
+{"kind":"textbox","id":"sh/9kz2pw7e","slide":8,"text":"前後端分離，責任清楚","textPreview":"前後端分離，責任清楚","textChars":10,"textLines":1,"bbox":[420,245,650,32]}
+{"kind":"textbox","id":"sh/2l4jix8j","slide":8,"text":"資料一致性","textPreview":"資料一致性","textChars":5,"textLines":1,"bbox":[100,317,220,32]}
+{"kind":"shape","id":"sh/nmd0b2p4","slide":8,"bbox":[330,335,60,0]}
+{"kind":"textbox","id":"sh/nel8be1w","slide":8,"text":"交易鎖、unique constraint、index","textPreview":"交易鎖、unique constraint、index","textChars":27,"textLines":1,"bbox":[420,317,650,32]}
+{"kind":"textbox","id":"sh/mdc7itkr","slide":8,"text":"安全性","textPreview":"安全性","textChars":3,"textLines":1,"bbox":[100,389,220,32]}
+{"kind":"shape","id":"sh/90nqdoj2","slide":8,"bbox":[330,407,60,0]}
+{"kind":"textbox","id":"sh/ozupkj2h","slide":8,"text":"JWT、HttpOnly cookie、token rotation","textPreview":"JWT、HttpOnly cookie、token rotation","textChars":34,"textLines":1,"bbox":[420,389,650,32]}
+{"kind":"textbox","id":"sh/zal87e10","slide":8,"text":"工程品質","textPreview":"工程品質","textChars":4,"textLines":1,"bbox":[100,461,220,32]}
+{"kind":"shape","id":"sh/e9c7e9kf","slide":8,"bbox":[330,479,60,0]}
+{"kind":"textbox","id":"sh/1c3q9oj6","slide":8,"text":"migration、例外處理、測試","textPreview":"migration、例外處理、測試","textChars":17,"textLines":1,"bbox":[420,461,650,32]}
+{"kind":"textbox","id":"sh/0bupgj2l","slide":8,"text":"可以延伸的下一步：部署到雲端、加入審核流程、補上 E2E 測試與操作紀錄","textPreview":"可以延伸的下一步：部署到雲端、加入審核流程、補上 E2E 測試與操作紀錄","textChars":36,"textLines":1,"bbox":[100,560,1000,34]}
+{"kind":"notes","id":"nt/fv3jb8","slide":8,"text":"結尾說法：這個作品的重點不是功能很多，而是把容易出錯的規則放在正確的層級並可被驗證。"}
