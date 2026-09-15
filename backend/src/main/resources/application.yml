@@ -19,5 +19,8 @@ server:
 
 app:
   jwt-secret: ${JWT_SECRET:change-this-demo-secret-change-this-demo-secret}
+  access-token-ttl: ${ACCESS_TOKEN_TTL:15m}
+  refresh-token-ttl: ${REFRESH_TOKEN_TTL:7d}
+  refresh-cookie-secure: ${REFRESH_COOKIE_SECURE:false}
   cors-origin: ${CORS_ORIGIN:http://localhost:5173}
   holiday-api-url: ${HOLIDAY_API_URL:https://data.ntpc.gov.tw/api/datasets/308dcd75-6434-45bc-a95f-584da4fed251/json}
