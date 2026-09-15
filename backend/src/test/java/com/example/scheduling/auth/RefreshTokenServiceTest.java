@@ -13,7 +13,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 class RefreshTokenServiceTest {
     private final RefreshTokenRepository repository = mock(RefreshTokenRepository.class);
-    private final RefreshTokenService service = new RefreshTokenService(repository, Duration.ofDays(7));
+    private final RefreshTokenService service = new RefreshTokenService(
+            repository, Duration.ofDays(7), Duration.ofDays(30));
     private final AppUser user = new AppUser("amy@example.com", "hash", "Amy", AppUser.Role.EMPLOYEE);
 
     @Test
@@ -51,5 +52,6 @@ class RefreshTokenServiceTest {
 
         var exception = assertThrows(ResponseStatusException.class, () -> service.rotate(original.value()));
         assertEquals(401, exception.getStatusCode().value());
+        verify(repository).revokeFamily(eq(persistedOriginal.getFamilyId()), any(java.time.Instant.class));
     }
 }

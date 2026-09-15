@@ -11,20 +11,33 @@ type RetryableRequest = InternalAxiosRequestConfig & { _retriedAfterRefresh?: bo
 const baseURL = import.meta.env.VITE_API_URL ?? "/api";
 let accessToken: string | null = null;
 let pendingRefresh: Promise<AuthSession> | null = null;
+let endingSession = false;
 
-export const api = axios.create({ baseURL, withCredentials: true });
-const refreshClient = axios.create({ baseURL, withCredentials: true });
+const clientOptions = {
+  baseURL,
+  withCredentials: true,
+  headers: { "X-Requested-With": "XMLHttpRequest" },
+};
+export const api = axios.create(clientOptions);
+const refreshClient = axios.create(clientOptions);
 
 export function setAccessToken(token: string | null) {
   accessToken = token;
 }
 
 export function refreshSession(): Promise<AuthSession> {
+  if (endingSession) {
+    return Promise.reject(new Error("正在登出"));
+  }
   if (!pendingRefresh) {
-    pendingRefresh = refreshClient
-      .post<AuthSession>("/auth/refresh")
+    const request = () => refreshClient.post<AuthSession>("/auth/refresh");
+    const response = "locks" in navigator
+      ? navigator.locks.request("scheduling-refresh-token", request)
+      : request();
+    pendingRefresh = response
       .then(({ data }) => {
         setAccessToken(data.accessToken);
+        window.dispatchEvent(new CustomEvent<AuthSession>("auth:refreshed", { detail: data }));
         return data;
       })
       .finally(() => {
@@ -35,7 +48,16 @@ export function refreshSession(): Promise<AuthSession> {
 }
 
 export async function endSession() {
-  await refreshClient.post("/auth/logout");
+  endingSession = true;
+  try {
+    if (pendingRefresh) {
+      await pendingRefresh.catch(() => undefined);
+    }
+    await refreshClient.post("/auth/logout");
+  } finally {
+    setAccessToken(null);
+    endingSession = false;
+  }
 }
 
 export function apiError(error: unknown) {

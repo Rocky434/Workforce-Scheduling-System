@@ -21,44 +21,47 @@ public class AuthController {
     private final PasswordEncoder passwords;
     private final AccessTokenService accessTokens;
     private final RefreshTokenService refreshTokens;
-    private final Duration refreshTokenTtl;
     private final boolean secureCookie;
 
     public AuthController(UserRepository users, PasswordEncoder passwords, AccessTokenService accessTokens,
             RefreshTokenService refreshTokens,
-            @Value("${app.refresh-token-ttl:7d}") Duration refreshTokenTtl,
             @Value("${app.refresh-cookie-secure:false}") boolean secureCookie) {
         this.users = users;
         this.passwords = passwords;
         this.accessTokens = accessTokens;
         this.refreshTokens = refreshTokens;
-        this.refreshTokenTtl = refreshTokenTtl;
         this.secureCookie = secureCookie;
     }
 
     @PostMapping("/login")
-    public AuthResponse login(@Valid @RequestBody LoginRequest request, HttpServletResponse response) {
+    public AuthResponse login(@Valid @RequestBody LoginRequest request, HttpServletResponse response,
+            @RequestHeader(name = "X-Requested-With", required = false) String requestMarker) {
+        validateRequestMarker(requestMarker);
         var user = users.findByEmailIgnoreCase(request.email()).filter(AppUser::isActive)
                 .filter(u -> passwords.matches(request.password(), u.getPasswordHash()))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "帳號或密碼錯誤"));
         var refreshToken = refreshTokens.issue(user);
-        setRefreshCookie(response, refreshToken.value());
+        setRefreshCookie(response, refreshToken);
         return authResponse(user);
     }
 
     @PostMapping("/refresh")
     public AuthResponse refresh(
             @CookieValue(name = REFRESH_COOKIE, required = false) String rawRefreshToken,
-            HttpServletResponse response) {
+            HttpServletResponse response,
+            @RequestHeader(name = "X-Requested-With", required = false) String requestMarker) {
+        validateRequestMarker(requestMarker);
         var session = refreshTokens.rotate(rawRefreshToken);
-        setRefreshCookie(response, session.refreshToken().value());
+        setRefreshCookie(response, session.refreshToken());
         return authResponse(session.user());
     }
 
     @PostMapping("/logout")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void logout(@CookieValue(name = REFRESH_COOKIE, required = false) String rawRefreshToken,
-            HttpServletResponse response) {
+            HttpServletResponse response,
+            @RequestHeader(name = "X-Requested-With", required = false) String requestMarker) {
+        validateRequestMarker(requestMarker);
         refreshTokens.revoke(rawRefreshToken);
         response.addHeader(HttpHeaders.SET_COOKIE, refreshCookie("", Duration.ZERO).toString());
     }
@@ -68,8 +71,16 @@ public class AuthController {
                 new CurrentUser(user.getId(), user.getEmail(), user.getDisplayName(), user.getRole().name()));
     }
 
-    private void setRefreshCookie(HttpServletResponse response, String value) {
-        response.addHeader(HttpHeaders.SET_COOKIE, refreshCookie(value, refreshTokenTtl).toString());
+    private void validateRequestMarker(String requestMarker) {
+        if (!"XMLHttpRequest".equals(requestMarker)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "不允許的認證請求");
+        }
+    }
+
+    private void setRefreshCookie(HttpServletResponse response, RefreshTokenService.IssuedRefreshToken token) {
+        var maxAge = Duration.between(java.time.Instant.now(), token.expiresAt());
+        response.addHeader(HttpHeaders.SET_COOKIE,
+                refreshCookie(token.value(), maxAge.isNegative() ? Duration.ZERO : maxAge).toString());
     }
 
     private ResponseCookie refreshCookie(String value, Duration maxAge) {

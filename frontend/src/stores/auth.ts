@@ -61,6 +61,9 @@ export const useAuthStore = defineStore("auth", () => {
   }
 
   window.addEventListener("auth:expired", clearSession);
+  window.addEventListener("auth:refreshed", (event) => {
+    applySession((event as CustomEvent<AuthSession>).detail);
+  });
 
   return { user, initialize, login, logout };
 });

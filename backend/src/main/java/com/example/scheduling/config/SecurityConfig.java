@@ -30,6 +30,9 @@ public class SecurityConfig {
 
     @Bean
     SecretKey jwtKey(@Value("${app.jwt-secret}") String secret) {
+        if (secret.length() < 43 || secret.startsWith("change-this") || secret.startsWith("請使用")) {
+            throw new IllegalStateException("JWT_SECRET must be a random secret of at least 32 bytes");
+        }
         return new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
     }
 
@@ -73,7 +76,7 @@ public class SecurityConfig {
         var c = new CorsConfiguration();
         c.setAllowedOrigins(List.of(origin));
         c.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        c.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+        c.setAllowedHeaders(List.of("Authorization", "Content-Type", "X-Requested-With"));
         c.setAllowCredentials(true);
         var s = new UrlBasedCorsConfigurationSource();
         s.registerCorsConfiguration("/**", c);

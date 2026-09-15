@@ -3,6 +3,7 @@ package com.example.scheduling.auth;
 import com.example.scheduling.user.AppUser;
 import jakarta.persistence.*;
 import java.time.Instant;
+import java.util.UUID;
 
 @Entity
 @Table(name = "refresh_tokens")
@@ -21,6 +22,16 @@ public class RefreshToken {
     @Column(name = "expires_at", nullable = false)
     private Instant expiresAt;
 
+    @Column(name = "family_id", nullable = false)
+    private UUID familyId;
+
+    @Column(name = "absolute_expires_at", nullable = false)
+    private Instant absoluteExpiresAt;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "replaced_by_id")
+    private RefreshToken replacedBy;
+
     @Column(name = "revoked_at")
     private Instant revokedAt;
 
@@ -30,10 +41,13 @@ public class RefreshToken {
     protected RefreshToken() {
     }
 
-    public RefreshToken(AppUser user, String tokenHash, Instant expiresAt, Instant createdAt) {
+    public RefreshToken(AppUser user, String tokenHash, Instant expiresAt, UUID familyId,
+            Instant absoluteExpiresAt, Instant createdAt) {
         this.user = user;
         this.tokenHash = tokenHash;
         this.expiresAt = expiresAt;
+        this.familyId = familyId;
+        this.absoluteExpiresAt = absoluteExpiresAt;
         this.createdAt = createdAt;
     }
 
@@ -53,13 +67,31 @@ public class RefreshToken {
         return revokedAt;
     }
 
+    public UUID getFamilyId() {
+        return familyId;
+    }
+
+    public Instant getAbsoluteExpiresAt() {
+        return absoluteExpiresAt;
+    }
+
+    public RefreshToken getReplacedBy() {
+        return replacedBy;
+    }
+
     public boolean isUsableAt(Instant instant) {
-        return revokedAt == null && expiresAt.isAfter(instant);
+        return revokedAt == null && expiresAt.isAfter(instant) && absoluteExpiresAt.isAfter(instant);
     }
 
     public void revoke(Instant instant) {
         if (revokedAt == null) {
             revokedAt = instant;
         }
+    }
+
+
+    public void replaceWith(RefreshToken replacement, Instant instant) {
+        revoke(instant);
+        replacedBy = replacement;
     }
 }
